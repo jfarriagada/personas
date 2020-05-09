@@ -6,10 +6,13 @@ import { getUsers } from '../actions'
 class Home extends Component {
 
     componentWillMount(){
+        console.log("will");
         this.props.getUsers()
     }
 
     render(){
+        console.log("render props", this.props);
+        
         return(
             <div>home</div>
         )

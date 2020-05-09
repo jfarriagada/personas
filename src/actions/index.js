@@ -1,10 +1,29 @@
 import http from './http'
-import axios from 'axios'
 
 
-export const getUsers = () =>{
+const startGetUsers = () => {
+    return { type: 'START_GET_USERS', ready: false }
+}
+const completeGetUsers = (data) => {
+    return { type: 'COMPLETE_GET_USERS', data }
+}
+const errorGetUsers = (err) => {
+    return { type: 'ERROR_GET_USERS', err }
+}
+
+
+
+
+export const getUsers = () => {
     return (dispatch, getState) => {
-        console.log("get users");
-        
+        dispatch(startGetUsers())  
+
+        http.get('users/')
+        .then(resp => {
+            dispatch(completeGetUsers(resp.data))
+        })
+        .catch(err => {
+            dispatch(errorGetUsers(err))
+        })
     }
 }
