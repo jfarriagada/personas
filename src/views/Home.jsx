@@ -2,8 +2,10 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { getUsers } from '../actions'
-import 'materialize-css/dist/css/materialize.min.css'
 import UserItem from '../components/UserItem'
+import Grid from '@material-ui/core/Grid'
+import CircularProgress from '@material-ui/core/CircularProgress'
+
 
 class Home extends Component {
     constructor(){
@@ -14,9 +16,11 @@ class Home extends Component {
         this.props.getUsers()
     }
 
+    
     render(){
         console.log("render props", this.props);
         let users = []
+
         if(this.props.users.data){
             users = this.props.users.data.map((item, index, array) => {
                 return (
@@ -29,6 +33,19 @@ class Home extends Component {
                     />                
                 )
             })
+        }
+
+        if(this.props.users.type === "START_GET_USERS"){
+            return (
+            <Grid
+                container
+                direction="row"
+                justify="center"
+                alignItems="center"
+            >
+                <CircularProgress color="primary" />
+            </Grid>
+            )
         }
 
         return(
