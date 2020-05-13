@@ -11,7 +11,15 @@ const errorGetUsers = (err) => {
     return { type: 'ERROR_GET_USERS', err }
 }
 
-
+const startGetUserById = () => {
+    return { type: 'START_GET_USER_BY_ID', ready: false }
+}
+const completeGetUserById = (data) => {
+    return { type: 'COMPLETE_GET_USER_BY_ID', data }
+}
+const errorGetUserById = (err) => {
+    return { type: 'ERROR_GET_USER_BY_ID', err }
+}
 
 
 export const getUsers = () => {
@@ -24,6 +32,20 @@ export const getUsers = () => {
         })
         .catch(err => {
             dispatch(errorGetUsers(err))
+        })
+    }
+}
+
+export const getUserById = (id) => {
+    return (dispatch, getState) => {
+        dispatch(startGetUserById())  
+
+        http.get('users/' + id)
+        .then(resp => {
+            dispatch(completeGetUserById(resp.data))
+        })
+        .catch(err => {
+            dispatch(errorGetUserById(err))
         })
     }
 }

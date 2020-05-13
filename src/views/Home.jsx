@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { getUsers } from '../actions'
-import UserItem from '../components/UserItem'
 import Grid from '@material-ui/core/Grid'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import UserItem from '../components/UserItem'
 
 
 class Home extends Component {
@@ -18,11 +18,10 @@ class Home extends Component {
 
     
     render(){
-        console.log("render props", this.props);
         let users = []
 
         if(this.props.users.data){
-            users = this.props.users.data.map((item, index, array) => {
+            users = this.props.users.data.map((item, index) => {
                 return (
                     <UserItem 
                         key={index}
